@@ -1,7 +1,5 @@
 package com.nelioalves.cursomc.domain;
 
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -9,7 +7,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class Categoria implements Serializable {
+public class Produto implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -19,15 +17,19 @@ public class Categoria implements Serializable {
 
     private String nome;
 
-    @ManyToMany(mappedBy = "categorias")
-    private List<Produto> produtos = new ArrayList<>();
+    private Double preco;
 
-    public Categoria(){
+    @ManyToMany
+    @JoinTable(name="PRODUTO_CATEGORIA", joinColumns = @JoinColumn(name="produto_id"),
+    inverseJoinColumns = @JoinColumn(name="categoria_id"))
+    private List<Categoria> categorias = new ArrayList<>();
 
+    public Produto() {
     }
 
-    public Categoria( String nome) {
+    public Produto( String nome, Double preco) {
         this.nome = nome;
+        this.preco = preco;
     }
 
     public int getId() {
@@ -46,20 +48,28 @@ public class Categoria implements Serializable {
         this.nome = nome;
     }
 
-    public List<Produto> getProdutos() {
-        return produtos;
+    public Double getPreco() {
+        return preco;
     }
 
-    public void setProdutos(List<Produto> produtos) {
-        this.produtos = produtos;
+    public void setPreco(Double preco) {
+        this.preco = preco;
+    }
+
+    public List<Categoria> getCategorias() {
+        return categorias;
+    }
+
+    public void setCategorias(List<Categoria> categorias) {
+        this.categorias = categorias;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Categoria categoria = (Categoria) o;
-        return id == categoria.id;
+        Produto produto = (Produto) o;
+        return id == produto.id;
     }
 
     @Override
