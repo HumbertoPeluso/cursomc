@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Table(name="CATEGORIA")
 public class Categoria implements Serializable {
 
     private static final long serialVersionUID = 1L;
