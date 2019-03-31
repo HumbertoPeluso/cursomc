@@ -1,6 +1,7 @@
 package com.nelioalves.cursomc.domain;
 
-import com.nelioalves.cursomc.repositories.PedidioRepository;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
@@ -15,12 +16,13 @@ public class ItemPedidoPK implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "pedido_id")
+    @JsonIgnore
     private Pedido pedido;
 
     @ManyToOne
     @JoinColumn(name = "produto_id")
+    @JsonIgnore
     private Produto produto;
-
 
 
     public Pedido getPedido() {

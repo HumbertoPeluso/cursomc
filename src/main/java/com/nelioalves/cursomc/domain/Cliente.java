@@ -1,7 +1,11 @@
 package com.nelioalves.cursomc.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.nelioalves.cursomc.domain.enums.TipoCliente;
+import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -20,15 +24,18 @@ public class Cliente implements Serializable {
     private String cpfOuCnpj;
     private Integer tipo;
 
-    @OneToMany(mappedBy = "cliente")
-    @JsonManagedReference
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Endereco> enderecos = new ArrayList<>();
-    @ElementCollection
+
+    @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "TELEFONE")
+    @JsonProperty("lista_telefones")
     private Set<String> telefones = new HashSet<>();
 
     @OneToMany(mappedBy = "cliente")
-    private List<Pedido>pedidios = new ArrayList<>();
+    @JsonIgnore
+    private List<Pedido>pedidos = new ArrayList<>();
 
     public Cliente() {
     }
@@ -40,12 +47,13 @@ public class Cliente implements Serializable {
         this.tipo = tipo.getCod();
     }
 
-    public List<Pedido> getPedidios() {
-        return pedidios;
+
+    public List<Pedido> getPedidos() {
+        return pedidos;
     }
 
-    public void setPedidios(List<Pedido> pedidios) {
-        this.pedidios = pedidios;
+    public void setPedidos(List<Pedido> pedido) {
+        this.pedidos = pedido;
     }
 
     public Integer getId() {
@@ -103,6 +111,8 @@ public class Cliente implements Serializable {
     public void setTelefones(Set<String> telefones) {
         this.telefones = telefones;
     }
+
+
 
     @Override
     public boolean equals(Object o) {

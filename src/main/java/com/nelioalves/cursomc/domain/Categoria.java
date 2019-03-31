@@ -1,5 +1,6 @@
 package com.nelioalves.cursomc.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
@@ -21,8 +22,8 @@ public class Categoria implements Serializable {
 
     private String nome;
 
-    @JsonManagedReference
-    @ManyToMany(mappedBy = "categorias")
+
+    @ManyToMany(mappedBy = "categorias", fetch = FetchType.EAGER)
     private List<Produto> produtos = new ArrayList<>();
 
     public Categoria(){

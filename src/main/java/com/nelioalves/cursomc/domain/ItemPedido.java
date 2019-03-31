@@ -1,5 +1,6 @@
 package com.nelioalves.cursomc.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import net.bytebuddy.implementation.bind.annotation.Super;
 
 import javax.persistence.EmbeddedId;
@@ -12,6 +13,7 @@ public class ItemPedido implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @EmbeddedId
+    @JsonIgnore
     private ItemPedidoPK id = new ItemPedidoPK();
 
     private Double desconto;
@@ -64,12 +66,13 @@ public class ItemPedido implements Serializable {
         this.preco = preco;
     }
 
+    @JsonIgnore
     public Pedido getPedido(){
-        return this.id.getPedido();
+        return id.getPedido();
     }
 
     public Produto getProduto(){
-        return this.id.getProduto();
+        return id.getProduto();
     }
 
     @Override

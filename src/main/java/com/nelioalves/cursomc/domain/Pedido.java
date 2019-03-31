@@ -1,5 +1,8 @@
 package com.nelioalves.cursomc.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -25,11 +28,11 @@ public class Pedido implements Serializable {
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "endereco_De_Entrega_id")
     private Endereco enderecoDeEntrega;
 
-    @OneToMany(mappedBy = "id.pedido")
+    @OneToMany(mappedBy = "id.pedido", fetch = FetchType.EAGER)
     private Set<ItemPedido> itens = new HashSet<>();
 
     public Pedido() {
@@ -40,6 +43,7 @@ public class Pedido implements Serializable {
         this.cliente = cliente;
         this.enderecoDeEntrega = enderecoDeEntrega;
     }
+
 
     public Date getInstante() {
         return instante;

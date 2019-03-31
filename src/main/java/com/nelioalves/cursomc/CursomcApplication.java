@@ -36,7 +36,7 @@ public class CursomcApplication implements CommandLineRunner {
     @Autowired
     private EnderecoRepository enderecoRepository;
     @Autowired
-    private PedidioRepository pedidioRepository;
+    private PedidoRepository pedidoRepository;
     @Autowired
     private PagamentoRepository pagamentoRepository;
     @Autowired
@@ -106,9 +106,9 @@ public class CursomcApplication implements CommandLineRunner {
         Pagamento pgto2 = new PagamentoComBoleto(EstadoPagamento.PENDENTE, ped2,sdf.parse("20/10/2017 00:00)") ,null);
         ped2.setPagamento(pgto2);
 
-        cli1.getPedidios().addAll(Arrays.asList(ped1, ped2));
+        cli1.getPedidos().addAll(Arrays.asList(ped1, ped2));
 
-        pedidioRepository.saveAll(Arrays.asList(ped1, ped2));
+        pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
         pagamentoRepository.saveAll(Arrays.asList(pgto1, pgto2));
 
         ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);
@@ -123,6 +123,7 @@ public class CursomcApplication implements CommandLineRunner {
         p3.getItens().addAll(Arrays.asList(ip2));
 
         itemPedidoRepository.saveAll(Arrays.asList(ip2,ip2,ip3));
+
 
     }
 }
