@@ -14,6 +14,15 @@ public class CategoriaService {
     @Autowired
     private CategoriaRepository categoriaRepository;
 
+    public Categoria insert(Categoria obj){
+        return categoriaRepository.save(obj);
+    }
+
+    public Categoria update(Categoria obj) {
+        find(obj.getId());
+        return categoriaRepository.save(obj);
+    }
+
     public Categoria find(int id){
 
        /* Optional<Categoria> obj = categoriaRepository.findById(id);
@@ -25,12 +34,4 @@ public class CategoriaService {
 
     }
 
-    public Categoria insert(Categoria obj){
-        return categoriaRepository.save(obj);
-    }
-
-    public Categoria update(Categoria obj) {
-        find(obj.getId());
-        return categoriaRepository.save(obj);
-    }
 }

@@ -27,7 +27,7 @@ public class CategoriaResource {
         return ResponseEntity.ok().body(obj);
     }
     @PostMapping
-    public ResponseEntity<Void> insert(@RequestBody Categoria obj){
+    public ResponseEntity<Categoria> insert(@RequestBody Categoria obj){
         obj= categoriaService.insert(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(obj.getId()).toUri();
@@ -36,7 +36,7 @@ public class CategoriaResource {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> update (@RequestBody Categoria obj, @PathVariable Integer id){
+    public ResponseEntity<Categoria> update (@RequestBody Categoria obj, @PathVariable Integer id){
 
         obj.setId(id);
 
