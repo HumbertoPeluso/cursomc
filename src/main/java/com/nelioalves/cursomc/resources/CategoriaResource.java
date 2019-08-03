@@ -4,13 +4,10 @@ import com.nelioalves.cursomc.domain.Categoria;
 import com.nelioalves.cursomc.services.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
 
 @RestController
 @RequestMapping("/categorias")
@@ -26,6 +23,7 @@ public class CategoriaResource {
 
         return ResponseEntity.ok().body(obj);
     }
+
     @PostMapping
     public ResponseEntity<Categoria> insert(@RequestBody Categoria obj){
         obj= categoriaService.insert(obj);
@@ -43,7 +41,14 @@ public class CategoriaResource {
         obj = categoriaService.update(obj);
 
         return ResponseEntity.noContent().build();
+    }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Integer id){
+
+        Categoria obj = categoriaService.find(id);
+        categoriaService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }
 
