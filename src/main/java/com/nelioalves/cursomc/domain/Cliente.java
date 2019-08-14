@@ -41,6 +41,7 @@ public class Cliente implements Serializable {
     }
 
     public Cliente(String nome, String email, String cpfOuCnpj, TipoCliente tipo) {
+        super();
         this.nome = nome;
         this.email = email;
         this.cpfOuCnpj = cpfOuCnpj;
