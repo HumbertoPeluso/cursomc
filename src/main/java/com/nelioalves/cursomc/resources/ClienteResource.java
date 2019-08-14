@@ -3,13 +3,16 @@ package com.nelioalves.cursomc.resources;
 import com.nelioalves.cursomc.domain.Cliente;
 import com.nelioalves.cursomc.domain.Cliente;
 import com.nelioalves.cursomc.dto.ClienteDTO;
+import com.nelioalves.cursomc.dto.ClienteNewDTO;
 import com.nelioalves.cursomc.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -69,7 +72,16 @@ public class ClienteResource {
         Page<ClienteDTO>listDto = list.map(obj -> new ClienteDTO(obj));
 
         return ResponseEntity.ok().body(listDto);
+    }
 
+    @PostMapping
+    public ResponseEntity<Cliente> insert(@Valid @RequestBody ClienteNewDTO objDto){
+        Cliente obj = clienteService.fromDTO(objDto);
+        obj= clienteService.insert(obj);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}").buildAndExpand(obj.getId()).toUri();
+
+        return ResponseEntity.created(uri).build();
     }
     
 }
