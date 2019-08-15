@@ -10,6 +10,7 @@ import com.nelioalves.cursomc.dto.ClienteNewDTO;
 import com.nelioalves.cursomc.repositories.CidadeRepository;
 import com.nelioalves.cursomc.repositories.ClienteRepository;
 import com.nelioalves.cursomc.repositories.ClienteRepository;
+import com.nelioalves.cursomc.repositories.EnderecoRepository;
 import com.nelioalves.cursomc.services.exceptions.DataIntegrityException;
 import com.nelioalves.cursomc.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public class ClienteService {
 
     @Autowired
     private CidadeRepository cidadeRepository;
+
+    @Autowired
+    private EnderecoRepository enderecoRepository;
 
     public Cliente find(int id) {
 
@@ -61,8 +65,11 @@ public class ClienteService {
     // insert @Transactional
     // Não é necessário usar cidadeRepository no método fromDTO
     // Cidade cid = new cidade(objDto.getCidadeId(), null, null);
-    public Cliente insert(Cliente obj){
-        return clienteRepository.save(obj);
+    public Cliente insert(Cliente obj) {
+
+        obj = clienteRepository.save(obj);
+        enderecoRepository.saveAll(obj.getEnderecos());
+        return obj;
     }
 
     public void delete(Integer id) {
@@ -92,7 +99,7 @@ public class ClienteService {
 
     public Cliente fromDTO(ClienteNewDTO objDto) {
 
-        Cliente cli = new Cliente(objDto.getNome(), objDto.getEmail(), objDto.getCpfOuCnpj(), TipoCliente.toEnum(objDto.getTipo()) );
+        Cliente cli = new Cliente(objDto.getNome(), objDto.getEmail(), objDto.getCpfOuCnpj(), TipoCliente.toEnum(objDto.getTipo()));
         Cidade cid = cidadeRepository.findById(objDto.getCidadeId());
         Endereco end = new Endereco(objDto.getLogradouro()
                 , objDto.getNumero()
@@ -103,9 +110,9 @@ public class ClienteService {
                 , cid);
         cli.getEnderecos().add(end);
         cli.getTelefones().add(objDto.getTelefone1());
-        if(objDto.getTelefone2()!=null)
+        if (objDto.getTelefone2() != null)
             cli.getTelefones().add(objDto.getTelefone2());
-        if(objDto.getTelefone3()!=null)
+        if (objDto.getTelefone3() != null)
             cli.getTelefones().add(objDto.getTelefone3());
 
 

@@ -25,7 +25,6 @@ public class Cliente implements Serializable {
     private Integer tipo;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
-    @JsonIgnore
     private List<Endereco> enderecos = new ArrayList<>();
 
     @ElementCollection(fetch = FetchType.EAGER)
