@@ -75,6 +75,8 @@ public class ItemPedido implements Serializable {
         return id.getProduto();
     }
 
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

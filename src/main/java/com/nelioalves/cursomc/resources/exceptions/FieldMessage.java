@@ -3,6 +3,7 @@ package com.nelioalves.cursomc.resources.exceptions;
 import java.io.Serializable;
 
 public class FieldMessage implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private String fieldName;
 
@@ -12,6 +13,7 @@ public class FieldMessage implements Serializable {
     }
 
     public FieldMessage(String fieldName, String message) {
+        super();
         this.fieldName = fieldName;
         this.message = message;
     }
