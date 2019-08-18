@@ -1,33 +1,39 @@
 package com.nelioalves.cursomc.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.nelioalves.cursomc.domain.enums.EstadoPagamento;
 
 import javax.persistence.Entity;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-public class PagamentoComBoleto extends Pagamento {
+@JsonTypeName("pagamentoComBoleto")
+public class PagamentoComBoleto extends Pagamento implements Serializable {
     private static final long serialVersionUID = 1L;
-    private Date dataVecimento;
 
+    @JsonFormat(pattern="dd/MM/yyyy")
+    private Date dataVencimento;
+
+    @JsonFormat(pattern="dd/MM/yyyy")
     private Date dataPagamento;
 
-    public PagamentoComBoleto(){
-
+    public PagamentoComBoleto() {
     }
 
-    public PagamentoComBoleto(EstadoPagamento estado, Pedido pedido, Date dataVecimento, Date dataPagamento) {
-        super(estado, pedido);
-        this.dataVecimento = dataVecimento;
+    public PagamentoComBoleto( EstadoPagamento estado, Pedido pedido, Date dataVencimento, Date dataPagamento) {
+        super( estado, pedido);
         this.dataPagamento = dataPagamento;
+        this.dataVencimento = dataVencimento;
     }
 
-    public Date getDataVecimento() {
-        return dataVecimento;
+    public Date getDataVencimento() {
+        return dataVencimento;
     }
 
-    public void setDataVecimento(Date dataVecimento) {
-        this.dataVecimento = dataVecimento;
+    public void setDataVencimento(Date dataVencimento) {
+        this.dataVencimento = dataVencimento;
     }
 
     public Date getDataPagamento() {
@@ -37,4 +43,5 @@ public class PagamentoComBoleto extends Pagamento {
     public void setDataPagamento(Date dataPagamento) {
         this.dataPagamento = dataPagamento;
     }
+
 }

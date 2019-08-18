@@ -1,11 +1,8 @@
 package com.nelioalves.cursomc.domain;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.nelioalves.cursomc.domain.enums.TipoCliente;
-import org.hibernate.annotations.Proxy;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -20,12 +17,13 @@ public class Cliente implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
+
+    @Column(unique = true)
     private String email;
     private String cpfOuCnpj;
     private Integer tipo;
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
-    @JsonIgnore
     private List<Endereco> enderecos = new ArrayList<>();
 
     @ElementCollection(fetch = FetchType.EAGER)
@@ -38,23 +36,17 @@ public class Cliente implements Serializable {
     private List<Pedido>pedidos = new ArrayList<>();
 
     public Cliente() {
+
     }
 
     public Cliente(String nome, String email, String cpfOuCnpj, TipoCliente tipo) {
+        super();
         this.nome = nome;
         this.email = email;
         this.cpfOuCnpj = cpfOuCnpj;
-        this.tipo = tipo.getCod();
+        this.tipo = (tipo == null) ? null : tipo.getCod();
     }
 
-
-    public List<Pedido> getPedidos() {
-        return pedidos;
-    }
-
-    public void setPedidos(List<Pedido> pedido) {
-        this.pedidos = pedido;
-    }
 
     public Integer getId() {
         return id;
@@ -88,12 +80,12 @@ public class Cliente implements Serializable {
         this.cpfOuCnpj = cpfOuCnpj;
     }
 
-    public TipoCliente getTipo() {
-        return TipoCliente.toEnum(tipo);
+    public Integer getTipo() {
+        return tipo;
     }
 
-    public void setTipo(TipoCliente tipo) {
-        this.tipo = tipo.getCod();
+    public void setTipo(Integer tipo) {
+        this.tipo = tipo;
     }
 
     public List<Endereco> getEnderecos() {
@@ -112,7 +104,13 @@ public class Cliente implements Serializable {
         this.telefones = telefones;
     }
 
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
 
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
+    }
 
     @Override
     public boolean equals(Object o) {
