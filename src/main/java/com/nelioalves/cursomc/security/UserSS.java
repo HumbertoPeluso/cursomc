@@ -4,13 +4,11 @@ import com.nelioalves.cursomc.domain.enums.Perfil;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Service
 public class UserSS implements UserDetails {
 
     private static final long serialVersionUID = 1L;
@@ -69,5 +67,10 @@ public class UserSS implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+    public boolean hasRole(Perfil perfil) {
+        return getAuthorities().contains(new SimpleGrantedAuthority(perfil.getDescricao()));
+    }
+
 
 }

@@ -1,5 +1,6 @@
 package com.nelioalves.cursomc.resources.exceptions;
 
+import com.nelioalves.cursomc.services.exceptions.AuthorizationException;
 import com.nelioalves.cursomc.services.exceptions.DataIntegrityException;
 import com.nelioalves.cursomc.services.exceptions.ObjectNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -36,6 +37,13 @@ public class ResourceExceptionHandler {
             err.addError(x.getField(), x.getDefaultMessage());
         }
         return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(err);
+    }
+
+    @ExceptionHandler(AuthorizationException.class)
+    public ResponseEntity<StandardError> authorization(AuthorizationException e, HttpServletRequest request) {
+
+        StandardError err = new StandardError(System.currentTimeMillis(), HttpStatus.FORBIDDEN.value(), "Authorization error", e.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(err);
     }
 
 }
