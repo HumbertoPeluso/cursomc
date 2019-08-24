@@ -9,6 +9,7 @@ import java.util.List;
 
 @Entity
 public class Estado implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -23,7 +24,9 @@ public class Estado implements Serializable {
     public Estado() {
     }
 
-    public Estado( String nome) {
+    public Estado(Integer id, String nome) {
+        super();
+        this.id = id;
         this.nome = nome;
     }
 
@@ -75,7 +78,6 @@ public class Estado implements Serializable {
             return false;
         return true;
     }
-
 
 
 }

@@ -13,7 +13,6 @@ import java.text.ParseException;
 @Configuration
 @Profile("test")
 public class TestConfig {
-
     @Autowired
     private DBService dbService;
 

@@ -9,17 +9,17 @@ import java.io.Serializable;
 
 @ClienteInsert
 public class ClienteNewDTO implements Serializable {
-   // private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-    @NotEmpty(message = "preenchimento obrigatório")
-    @Length(min = 5, max = 80, message = "O tamanho deve ser entre 5 e 80 carcteres")
+    @NotEmpty(message="Preenchimento obrigatório")
+    @Length(min=5, max=120, message="O tamanho deve ser entre 5 e 120 caracteres")
     private String nome;
 
-    @NotEmpty
-    @Email(message = "Email inválido")
+    @NotEmpty(message="Preenchimento obrigatório")
+    @Email(message="Email inválido")
     private String email;
 
-    @NotEmpty(message = "preenchimento obrigatório")
+    @NotEmpty(message="Preenchimento obrigatório")
     private String cpfOuCnpj;
 
     private Integer tipo;
@@ -27,23 +27,30 @@ public class ClienteNewDTO implements Serializable {
     @NotEmpty(message="Preenchimento obrigatório")
     private String senha;
 
-    @NotEmpty(message = "preenchimento obrigatório")
+    @NotEmpty(message="Preenchimento obrigatório")
     private String logradouro;
 
-    @NotEmpty(message = "preenchimento obrigatório")
+    @NotEmpty(message="Preenchimento obrigatório")
     private String numero;
+
     private String complemento;
+
     private String bairro;
 
-    @NotEmpty(message = "preenchimento obrigatório")
+    @NotEmpty(message="Preenchimento obrigatório")
     private String cep;
 
-    @NotEmpty(message = "preenchimento obrigatório")
+    @NotEmpty(message="Preenchimento obrigatório")
     private String telefone1;
+
     private String telefone2;
+
     private String telefone3;
 
-    private int cidadeId;
+    private Integer cidadeId;
+
+    public ClienteNewDTO() {
+    }
 
     public String getNome() {
         return nome;
@@ -141,11 +148,11 @@ public class ClienteNewDTO implements Serializable {
         this.telefone3 = telefone3;
     }
 
-    public int getCidadeId() {
+    public Integer getCidadeId() {
         return cidadeId;
     }
 
-    public void setCidadeId(int cidadeId) {
+    public void setCidadeId(Integer cidadeId) {
         this.cidadeId = cidadeId;
     }
 

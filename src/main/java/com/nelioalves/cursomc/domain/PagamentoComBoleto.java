@@ -22,8 +22,8 @@ public class PagamentoComBoleto extends Pagamento implements Serializable {
     public PagamentoComBoleto() {
     }
 
-    public PagamentoComBoleto( EstadoPagamento estado, Pedido pedido, Date dataVencimento, Date dataPagamento) {
-        super( estado, pedido);
+    public PagamentoComBoleto(Integer id, EstadoPagamento estado, Pedido pedido, Date dataVencimento, Date dataPagamento) {
+        super(id, estado, pedido);
         this.dataPagamento = dataPagamento;
         this.dataVencimento = dataVencimento;
     }

@@ -10,6 +10,7 @@ import java.util.*;
 
 @Entity
 public class Pedido implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -34,11 +35,11 @@ public class Pedido implements Serializable {
     private Set<ItemPedido> itens = new HashSet<>();
 
     public Pedido() {
-        super();
     }
 
-    public Pedido( Date instante, Cliente cliente, Endereco enderecoDeEntrega) {
+    public Pedido(Integer id, Date instante, Cliente cliente, Endereco enderecoDeEntrega) {
         super();
+        this.id = id;
         this.instante = instante;
         this.cliente = cliente;
         this.enderecoDeEntrega = enderecoDeEntrega;

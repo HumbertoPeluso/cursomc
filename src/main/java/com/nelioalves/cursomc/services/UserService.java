@@ -7,6 +7,9 @@ public class UserService {
 
     public static UserSS authenticated() {
         try {
+
+            String auth = SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
+
             return (UserSS) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         }
         catch (Exception e) {

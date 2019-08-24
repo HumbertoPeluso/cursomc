@@ -10,7 +10,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class UserSS implements UserDetails {
-
     private static final long serialVersionUID = 1L;
 
     private Integer id;
@@ -71,6 +70,4 @@ public class UserSS implements UserDetails {
     public boolean hasRole(Perfil perfil) {
         return getAuthorities().contains(new SimpleGrantedAuthority(perfil.getDescricao()));
     }
-
-
 }

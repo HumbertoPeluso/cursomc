@@ -17,23 +17,20 @@ import java.net.URI;
 public class PedidoResource {
 
     @Autowired
-    private PedidoService pedidoService;
+    private PedidoService service;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Pedido> find(@PathVariable int id) {
-
-        Pedido obj = pedidoService.find(id);
-
+    @RequestMapping(value="/{id}", method=RequestMethod.GET)
+    public ResponseEntity<Pedido> find(@PathVariable Integer id) {
+        Pedido obj = service.find(id);
         return ResponseEntity.ok().body(obj);
     }
 
-    @PostMapping
+    @RequestMapping(method=RequestMethod.POST)
     public ResponseEntity<Void> insert(@Valid @RequestBody Pedido obj) {
-        obj = pedidoService.insert(obj);
+        obj = service.insert(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
-
 }
 

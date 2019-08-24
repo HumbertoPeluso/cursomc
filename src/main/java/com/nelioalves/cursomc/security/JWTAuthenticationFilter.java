@@ -1,7 +1,7 @@
 package com.nelioalves.cursomc.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nelioalves.cursomc.dto.CredentialsDTO;
+import com.nelioalves.cursomc.dto.CredenciaisDTO;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -34,8 +34,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                                 HttpServletResponse res) throws AuthenticationException {
 
         try {
-            CredentialsDTO creds = new ObjectMapper()
-                    .readValue(req.getInputStream(), CredentialsDTO.class);
+            CredenciaisDTO creds = new ObjectMapper()
+                    .readValue(req.getInputStream(), CredenciaisDTO.class);
 
             UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(creds.getEmail(), creds.getSenha(), new ArrayList<>());
 
@@ -56,7 +56,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String username = ((UserSS) auth.getPrincipal()).getUsername();
         String token = jwtUtil.generateToken(username);
         res.addHeader("Authorization", "Bearer " + token);
-        res.addHeader("access-control-expose-headers", "Authorization");
     }
 
     private class JWTAuthenticationFailureHandler implements AuthenticationFailureHandler {
@@ -78,5 +77,4 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                     + "\"path\": \"/login\"}";
         }
     }
-
 }
