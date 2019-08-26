@@ -4,6 +4,7 @@ import com.nelioalves.cursomc.domain.*;
 import com.nelioalves.cursomc.domain.enums.EstadoPagamento;
 import com.nelioalves.cursomc.domain.enums.TipoCliente;
 import com.nelioalves.cursomc.repositories.*;
+import com.nelioalves.cursomc.services.S3Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
@@ -17,30 +18,8 @@ import java.util.Arrays;
 @SpringBootApplication
 public class CursomcApplication implements CommandLineRunner {
 
-    //teste
-   // @Autowired
-   // private CategoriaTesteRepository categoriaTesteRepository;
-
-    //
-    //@Value("${hibernate.default_schema:TESTE}")
     @Autowired
-    private CategoriaRepository categoriaRepository;
-    @Autowired
-    private ProdutoRepository produtoRepository;
-    @Autowired
-    private EstadoRepository estadoRepository;
-    @Autowired
-    private CidadeRepository cidadeRepository;
-    @Autowired
-    private ClienteRepository clienteRepository;
-    @Autowired
-    private EnderecoRepository enderecoRepository;
-    @Autowired
-    private PedidoRepository pedidoRepository;
-    @Autowired
-    private PagamentoRepository pagamentoRepository;
-    @Autowired
-    private ItemPedidoRepository itemPedidoRepository;
+    private S3Service s3Service;
 
     public static void main(String[] args) {
         SpringApplication.run(CursomcApplication.class, args);
@@ -48,11 +27,7 @@ public class CursomcApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        //teste
-       // CategoriaTeste categoriaTeste = new CategoriaTeste("catTeste");
 
-       // categoriaTesteRepository.saveAll(Arrays.asList(categoriaTeste));
-        //
-
+        s3Service.uploadFile("/home/humberto/Pictures/locacao-de-computadores-para-escritorios-01.jpg");
     }
 }
